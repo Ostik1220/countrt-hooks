@@ -1,27 +1,33 @@
-import { render } from "@testing-library/react"
 import { useRef, useState } from "react"
 
 
 const Timer = () => {
 const [timer, setTimer] = useState(0)
-// let time = 0;
+// let timer = 0;
+// let time = useRef(0)
 
 const func = () =>{
-   setTimer(timer + 1)
+   setTimer(prev => prev + 1)
+// time.current + 1
 }
 
-const startTimer = setInterval(func, 1000)
-console.log(startTimer)
+let timeId = useRef(null)
+
+// startTimer.current = 
+const startTimer = () => {
+timeId.current = setInterval(func, 1000)
+console.log(timer)
+}
 
 const stopTimer = () => {
-    clearInterval(startTimer)
-    setTimer(0)
-    console.log(startTimer)
+    clearInterval(timeId.current)
+    // setTimer(0)
 }
 
 return(
     <div>
-        <p>{startTimer}</p>
+        <button onClick={startTimer}>start timer</button>
+        <p>{timer}</p>
         <button onClick={stopTimer}>stop timer</button>
     </div>
 )
